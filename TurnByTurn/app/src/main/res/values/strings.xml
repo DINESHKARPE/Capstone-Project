@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">TurnByTurn</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="loading">Loading…</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="address">Address</string>
+    <string name="hint_address">Enter Address</string>
+    <string name="parent_profile">parent_profile</string>
+    <string name="profile_type">I am</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_user_profile">UserProfile</string>
+    <string name="invite">Invite</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="input_driver_bus_number">Enter your bus number</string>
+    <string name="input_driver_contact_number">Contact Number</string>
+    <string name="contact_image">Image</string>
+    <string name="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <!--<string name="server_client_id">server_client_id</string>-->
+    <string name="server_client_id">529299460861-1ngus5c4odb9l9ibf2ecjqdplv747p6i.apps.googleusercontent.com</string>
+    <string name="invitation">You got invitation,Download https://TurnByTurn/app/andriod</string>
+
+
+    <string name="content_authority">com.udacity.turnbyturn</string>
+
+
+    <string name="driverTitle">Start or Stop Ride</string>
+    <string name="parentTitle">Live Ride</string>
+    <string name="my_stop">My Stops</string>
+    <string name="trip_dashBoard">Dash Board</string>
+    <string name="trip_start">Start Trip</string>
+    <string name="trip_stop">Stop Trip</string>
+    <string name="share_using">Share Using</string>
+    <string name="data_not_found">Data Not Found</string>
+    <string name="profiletype">PROFILE_TYPE</string>
+    <string name="user_sign_in">USER_SIGN_IN</string>
+    <string name="completed">COMPLETED</string>
+    <string name="response">response</string>
+    <string name="profile_selection">PROFILE_SELECTION</string>
+    <string name="profile_selection_error_parent">Select As Parent</string>
+    <string name="profile_selection_error_driver">Select As Driver</string>
+    <string name="driver_bus_details">DRIVER_BUS_DETAILS</string>
+    <string name="empty_not_valid">Field cannot be empty</string>
+    <string name="pick_drop"><![CDATA[Pick & Drop location]]></string>
+    <string name="phonecountry_code">+91</string>
+    <string name="replcae">0</string>
+    <string name="success">SUCCESS</string>
+    <string name="asdriver">siginasdriver</string>
+    <string name="select_location">Select Location</string>
+    <string name="appwidget_text">TunrByTurn widget</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+
+</resources>

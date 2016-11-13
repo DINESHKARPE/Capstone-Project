@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#467FD7</color>
+    <color name="colorPrimaryDark">#467FD7</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorDark">#2e6fd1</color>
+    <color name="colorLight">#588cda</color>
+
+
+    <color name="colorRadio">#2196F3</color>
+    <color name="green">#4CAF50</color>
+    <color name="stoptrip">#ff4000</color>
+</resources>

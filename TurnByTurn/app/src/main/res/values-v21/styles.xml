@@ -1,0 +1,21 @@
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="MySubmitButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:colorButtonNormal">@color/green</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <!--<style name="MyToolbar">-->
+    <!--<item name="theme">@style/Theme.AppCompat.Light.DarkActionBar</item>-->
+    <!--<item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>-->
+    <!--<item name="android:background">?colorPrimary</item>-->
+    <!--<item name="android:elevation">0dp</item>-->
+    <!--</style>-->
+</resources>

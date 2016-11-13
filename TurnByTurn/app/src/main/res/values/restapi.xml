@@ -1,0 +1,4 @@
+<resources>
+    <string name="turn_by_turn_base_url">http://128.199.218.81:9999/v1/</string>
+
+</resources>
