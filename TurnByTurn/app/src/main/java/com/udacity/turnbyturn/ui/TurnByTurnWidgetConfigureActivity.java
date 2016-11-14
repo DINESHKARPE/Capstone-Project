@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
@@ -14,7 +15,7 @@ import com.udacity.turnbyturn.R;
 /**
  * The configuration screen for the {@link TurnByTurnWidget TurnByTurnWidget} AppWidget.
  */
-public class TurnByTurnWidgetConfigureActivity extends Activity {
+public class TurnByTurnWidgetConfigureActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "com.udacity.turnbyturn.ui.TurnByTurnWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
