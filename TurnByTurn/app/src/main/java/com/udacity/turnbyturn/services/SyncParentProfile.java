@@ -42,8 +42,6 @@ public class SyncParentProfile extends AsyncTask<JSONObject,Void,JSONObject> {
     protected JSONObject doInBackground(JSONObject... params) {
 
 
-//        {"data":[{"id":2,"contactnumber":"+918793282291","driverid":1,"usertype":1,"PARENTID":2,"STOPID":1}],"status":"SUCCESS"}
-
         JSONObject jsonObject = params[0];
         JSONObject userProfile = new JSONObject();
         try {
