@@ -185,7 +185,7 @@ public class SignIn extends Fragment implements View.OnClickListener{
                 e.printStackTrace();
             }
 
-            mListener.onFragmentInteraction(userAccount, "PROFILE_SELECTION");
+            mListener.onFragmentInteraction(userAccount, R.string.profile_selection);
 
 
         } else {

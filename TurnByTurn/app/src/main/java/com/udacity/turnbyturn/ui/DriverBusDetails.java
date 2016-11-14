@@ -98,9 +98,9 @@ public class DriverBusDetails extends Fragment {
 
 
 
-                    getUserProfile().put("driverbusnumber",busNumber);
-                    getUserProfile().put("drivercontactnumber","+91"+contactNumber.trim());
-                    mListener.onFragmentInteraction(getUserProfile(),"INVITE_PARENTS_WITH_LOCATION");
+                    getUserProfile().put(getString(R.string.driverbusnumber),busNumber);
+                    getUserProfile().put(getString(R.string.drivercontactnumber),getString(R.string.phonecountry_code)+contactNumber.trim());
+                    mListener.onFragmentInteraction(getUserProfile(),R.string.invite_parents_with_location);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -119,7 +119,7 @@ public class DriverBusDetails extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.implementListner));
         }
     }
 

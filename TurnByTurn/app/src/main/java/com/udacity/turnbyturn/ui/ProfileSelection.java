@@ -115,10 +115,10 @@ public class ProfileSelection extends Fragment {
 
                  if(ProfileType.DRIVER.toString().equals(profileType)){
 
-                     jsonObject.put("profiletype",ProfileType.DRIVER.toString());
-                     mListener.onFragmentInteraction(jsonObject,getString(R.string.driver_bus_details));
+                     jsonObject.put(getString(R.string.user_profiletype),ProfileType.DRIVER.toString());
+                     mListener.onFragmentInteraction(jsonObject,R.string.driver_bus_details);
                  }else{
-                     jsonObject.put("profiletype",ProfileType.PARENT.toString());
+                     jsonObject.put(getString(R.string.user_profiletype),ProfileType.PARENT.toString());
 
 
                      if (TextUtils.isEmpty(parentContact) && View.VISIBLE == parentContactNumber.getVisibility()) {
@@ -127,35 +127,35 @@ public class ProfileSelection extends Fragment {
                          return;
                      }else {
 
-                         final Call<JsonElement> resopnseData = TurnByTurnClient.get().checkinvItationPending("+91" + parentContact.trim().replaceAll(" ",""));
+                         final Call<JsonElement> resopnseData = TurnByTurnClient.get().checkinvItationPending(getString(R.string.phonecountry_code) + parentContact.trim().replaceAll(" ",""));
                          resopnseData.enqueue(new Callback<JsonElement>() {
                              @Override
                              public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                                  try {
                                      JsonElement jsonElement = response.body();
-                                     jsonObject.put("parentcontactnumber","+91"+ parentContact.trim().replaceAll(" ",""));
+                                     jsonObject.put(getString(R.string.parentcontactnumber),getString(R.string.phonecountry_code)+ parentContact.trim().replaceAll(" ",""));
                                      SharedPreferences pref = getContext().getSharedPreferences(Config.SHARED_PREF, 0);
-                                     jsonObject.put("regId", pref.getString("regId", null));
+                                     jsonObject.put(getString(R.string.regId), pref.getString(getString(R.string.regId), null));
 
-                                     if(((JsonObject) jsonElement).get("status").toString().replaceAll("\"","").equals("FAIL")){
-                                       mListener.onFragmentInteraction(jsonObject,"PARENT_STOP");
+                                     if(((JsonObject) jsonElement).get(getString(R.string.status)).toString().replaceAll("\"","").equals(getString(R.string.fail))){
+                                       mListener.onFragmentInteraction(jsonObject,R.string.parent_stop);
                                      }else {
 
-                                         jsonObject.put("INVRESPONSE",jsonElement.getAsJsonObject());
+                                         jsonObject.put(getString(R.string.invresponse),jsonElement.getAsJsonObject());
 
                                          ContentValues accountValues = new ContentValues();
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.NAME, jsonObject.getString("name"));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.PHOTO_URL, jsonObject.getString("photourl"));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.EMAIL, jsonObject.getString("email"));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.G_ID, jsonObject.getString("gid"));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.NAME, jsonObject.getString(getString(R.string.username)));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.PHOTO_URL, jsonObject.getString(getString(R.string.userprofilepic)));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.EMAIL, jsonObject.getString(getString(R.string.useremail)));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.G_ID, jsonObject.getString(getString(R.string.usergid)));
                                          accountValues.put(TurnByTurnContract.UserAccountEntry.ID_TOKEN, "");
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.CONTACT_NUMBER,jsonObject.getString("parentcontactnumber"));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.CONTACT_NUMBER,jsonObject.getString(getString(R.string.parentcontactnumber)));
                                          accountValues.put(TurnByTurnContract.UserAccountEntry.BUS_NUMBER, "0");
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.DRIVER_ID, String.valueOf(((JsonObject) jsonElement).getAsJsonArray("data").get(0).getAsJsonObject().get("driverid")));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.IMEI,jsonObject.getString("imei"));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_AUTH_CODE,jsonObject.getString("serverauthcode"));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.USER_TYPE,jsonObject.getString("profiletype"));
-                                         accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_ID, String.valueOf(((JsonObject) jsonElement).getAsJsonArray("data").get(0).getAsJsonObject().get("id")));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.DRIVER_ID, String.valueOf(((JsonObject) jsonElement).getAsJsonArray(getString(R.string.data)).get(0).getAsJsonObject().get(getString(R.string.driverid))));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.IMEI,jsonObject.getString(getString(R.string.imei)));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_AUTH_CODE,jsonObject.getString(getString(R.string.serverauthcode)));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.USER_TYPE,jsonObject.getString(getString(R.string.user_profiletype)));
+                                         accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_ID, String.valueOf(((JsonObject) jsonElement).getAsJsonArray(getString(R.string.data)).get(0).getAsJsonObject().get(getString(R.string.id))));
 
                                          Uri insertedUri = getContext().getContentResolver().insert(TurnByTurnContract.UserAccountEntry.CONTENT_URI,
                                                  accountValues);
@@ -164,7 +164,7 @@ public class ProfileSelection extends Fragment {
 
                                          new SyncParentProfile(getContext(),getActivity().getWindow().getDecorView().getRootView()).execute(jsonObject);
 
-                                         mListener.onFragmentInteraction(jsonObject,"START_PROFILE");
+                                         mListener.onFragmentInteraction(jsonObject,R.string.start_profile);
                                      }
 
 
@@ -226,7 +226,7 @@ public class ProfileSelection extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.implementListner));
         }
     }
 

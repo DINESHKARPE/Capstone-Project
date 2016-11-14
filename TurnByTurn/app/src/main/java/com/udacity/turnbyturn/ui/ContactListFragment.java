@@ -119,10 +119,10 @@ public class ContactListFragment extends ListFragment implements
         Button  button = (Button) contactList.findViewById(R.id.contact_invite_button);
         TextView editText = (TextView)contactList.findViewById(R.id.invite_info);
         try {
-            if(getJsonObject().get("profiletype").toString().equals(ProfileType.DRIVER.toString())){
-                editText.setText("Select Parent");
+            if(getJsonObject().get(getString(R.string.user_profiletype)).toString().equals(ProfileType.DRIVER.toString())){
+                editText.setText(getString(R.string.select_parent));
             }else{
-                editText.setText("Select Driver");
+                editText.setText(getString(R.string.select_driver));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -137,12 +137,12 @@ public class ContactListFragment extends ListFragment implements
 
                     for(int key:contactsAdapter.getSelectedContactMap().keySet()){
 
-                            contactInvitation.put(contactsAdapter.getSelectedContactMap().get(key).getString("contactNumber"));
+                            contactInvitation.put(contactsAdapter.getSelectedContactMap().get(key).getString(getString(R.string.contactnumber)));
                     }
-                    jsonObject.put("invitation",contactInvitation);
+                    jsonObject.put(getString(R.string.invitation_data),contactInvitation);
 
-                    if(jsonObject.get("profiletype").toString().equals(ProfileType.DRIVER.toString())){
-                        jsonObject.put("parent",contactsAdapter.getSelectedContactMap());
+                    if(jsonObject.get(getString(R.string.profile_type_parent)).toString().equals(ProfileType.DRIVER.toString())){
+                        jsonObject.put(getString(R.string.parent),contactsAdapter.getSelectedContactMap());
 //                      mListener.onFragmentInteraction(jsonObject,"INVITE_PARENTS_WITH_LOCATION");
                     }else {
                         Call<JsonElement> siginResponse = TurnByTurnClient.get().sigin(jsonObject);
@@ -154,11 +154,11 @@ public class ContactListFragment extends ListFragment implements
 
                                 try {
                                 JsonObject responseSigin = response.body().getAsJsonObject();
-                                jsonObject.put("response",responseSigin);
+                                jsonObject.put(getString(R.string.response),responseSigin);
 
-                                    if(responseSigin.get("siginasparent").getAsString().equals("SUCCESS")){
+                                    if(responseSigin.get(getString(R.string.siginasparent)).getAsString().equals(getString(R.string.success))){
                                         sendInvitationSms(invitationNumber, getString(R.string.invitation));
-                                        mListener.onFragmentInteraction(jsonObject,"START_PROFILE");
+                                        mListener.onFragmentInteraction(jsonObject,R.string.start_profile);
                                     }
 
                                 } catch (JSONException e) {

@@ -7,5 +7,6 @@ import org.json.JSONObject;
  */
 
 public interface OnFragmentInteractionListener {
-    void onFragmentInteraction(JSONObject fragmentData, String moveToscreen);
+//    void onFragmentInteraction(JSONObject fragmentData, String moveToscreen);
+    void onFragmentInteraction(JSONObject fragmentData, int stringID);
 }

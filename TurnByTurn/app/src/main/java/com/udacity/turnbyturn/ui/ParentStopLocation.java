@@ -139,11 +139,11 @@ public class ParentStopLocation extends Fragment implements LocationListener {
             public void onClick(View v) {
                 JSONObject parentAddress = getUserProfile();
                 try {
-                    parentAddress.put("landmark", parentLandmark.getText().toString());
-                    parentAddress.put("address", edit_text_address.getText().toString());
-                    parentAddress.put("lat", String.valueOf(mLastLocation.getLatitude()));
-                    parentAddress.put("longi", String.valueOf(mLastLocation.getLongitude()));
-                    mListener.onFragmentInteraction(parentAddress, "INVITE_CONTACT_LIST");
+                    parentAddress.put(getString(R.string.landmark), parentLandmark.getText().toString());
+                    parentAddress.put(getString(R.string.locationaddress), edit_text_address.getText().toString());
+                    parentAddress.put(getString(R.string.lat), String.valueOf(mLastLocation.getLatitude()));
+                    parentAddress.put(getString(R.string.longi), String.valueOf(mLastLocation.getLongitude()));
+                    mListener.onFragmentInteraction(parentAddress, R.string.invite_contact_list);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -201,20 +201,18 @@ public class ParentStopLocation extends Fragment implements LocationListener {
                         }
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to" +
-                                "upgrade location settings ");
+                        Log.i(TAG, getString(R.string.resolution_required));
 
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the result
                             // in onActivityResult().
                             status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
-                            Log.i(TAG, "PendingIntent unable to execute request.");
+                            Log.i(TAG, getString(R.string.request_check_setting));
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog " +
-                                "not created.");
+                        Log.i(TAG, getString(R.string.settings_chnages));
                         break;
                 }
             }
@@ -239,7 +237,7 @@ public class ParentStopLocation extends Fragment implements LocationListener {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.implementListner));
         }
     }
 
@@ -298,7 +296,7 @@ public class ParentStopLocation extends Fragment implements LocationListener {
             googleMap.animateCamera(cameraUpdate);
 
             Glide.with(getContext()).
-                        load(userProfile.getString("photourl"))
+                        load(userProfile.getString(getString(R.string.photourl)))
                         .asBitmap()
                         .fitCenter()
                         .into(new SimpleTarget<Bitmap>(120, 120) {

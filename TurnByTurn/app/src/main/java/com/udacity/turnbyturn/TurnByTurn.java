@@ -94,7 +94,7 @@ public class TurnByTurn extends AppCompatActivity implements EasyPermissions.Per
 
 
             } else {
-                EasyPermissions.requestPermissions(this, "All Permission are required",
+                EasyPermissions.requestPermissions(this, getString(R.string.all_permission_are_required),
                         PERMISSION_REQUEST_CODE, perms);
             }
         }
@@ -111,7 +111,7 @@ public class TurnByTurn extends AppCompatActivity implements EasyPermissions.Per
 
 
             } else {
-                EasyPermissions.requestPermissions(this, "All Permission are required",
+                EasyPermissions.requestPermissions(this, getString(R.string.all_permission_are_required),
                         PERMISSION_REQUEST_CODE, perms);
             }
 
@@ -211,7 +211,7 @@ public class TurnByTurn extends AppCompatActivity implements EasyPermissions.Per
     }
 
     @Override
-    public void onFragmentInteraction(JSONObject fragmentData,String moveToscreen) {
+    public void onFragmentInteraction(JSONObject fragmentData,int stringID) {
 
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -227,15 +227,15 @@ public class TurnByTurn extends AppCompatActivity implements EasyPermissions.Per
 
         }
 
-        switch (moveToscreen){
+        switch (stringID){
 
-            case "INVITE_CONTACT_LIST":
+            case R.string.invite_contact_list:
 
                 ContactListFragment contactListFragment = ContactListFragment.newInstance(userProfile);
                 fragmentTransaction.replace(R.id.fragment_container,contactListFragment);
                 break;
-
-            case "PROFILE_SELECTION":
+            //"PROFILE_SELECTION"
+            case R.string.profile_selection:
 
 
 
@@ -257,23 +257,23 @@ public class TurnByTurn extends AppCompatActivity implements EasyPermissions.Per
                 }
                 break;
 
-            case "PARENT_STOP":
+            case R.string.parent_stop:
 
                 ParentStopLocation parentStopLocation = ParentStopLocation.newInstance(userProfile,googleSignInOptions,mGoogleApiClient);
                 fragmentTransaction.replace(R.id.fragment_container,parentStopLocation);
                 break;
 
-            case "DRIVER_BUS_DETAILS":
+            case R.string.driver_bus_details:
 
                 DriverBusDetails driverBusDetails = DriverBusDetails.newInstance(userProfile);
                 fragmentTransaction.replace(R.id.fragment_container,driverBusDetails);
                 break;
-            case "INVITE_PARENTS_WITH_LOCATION":
+            case R.string.invite_parents_with_location:
 
                 DriverStopSeletion driverStopSeletion = DriverStopSeletion.newInstance(userProfile,googleSignInOptions,mGoogleApiClient);
                 fragmentTransaction.replace(R.id.fragment_container,driverStopSeletion);
                 break;
-            case "START_PROFILE":
+            case R.string.start_profile:
 
 
 

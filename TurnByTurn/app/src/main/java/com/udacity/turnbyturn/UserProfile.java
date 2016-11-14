@@ -310,7 +310,7 @@ public class UserProfile extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(JSONObject fragmentData, String moveToscreen) {
+    public void onFragmentInteraction(JSONObject fragmentData, int stringID) {
 
     }
 

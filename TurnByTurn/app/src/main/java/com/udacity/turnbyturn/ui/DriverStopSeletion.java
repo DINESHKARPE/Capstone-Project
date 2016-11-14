@@ -180,7 +180,7 @@ public class DriverStopSeletion extends ListFragment implements
                } catch (GooglePlayServicesRepairableException e) {
                    GooglePlayServicesUtil.getErrorDialog(e.getConnectionStatusCode(),getActivity(), 0);
                } catch (GooglePlayServicesNotAvailableException e) {
-                   Toast.makeText(getContext(), "Google Play Services is not available.",
+                   Toast.makeText(getContext(), getString(R.string.googleservicesnotfount),
                            Toast.LENGTH_LONG)
                            .show();
                }
@@ -195,7 +195,7 @@ public class DriverStopSeletion extends ListFragment implements
 
                 if(TextUtils.isEmpty(driver_stop_landMark.getText().toString()) || TextUtils.isEmpty(driver_stop_address.getText().toString())){
                     Snackbar snackbar = Snackbar
-                            .make(getView(),"Select Location", Snackbar.LENGTH_SHORT);
+                            .make(getView(),getString(R.string.select_location), Snackbar.LENGTH_SHORT);
                     snackbar.show();
                     imageButton.requestFocus();
                     return;
@@ -208,20 +208,20 @@ public class DriverStopSeletion extends ListFragment implements
 
                     try {
 
-                        String contactNumber = contactsAdapter.getSelectedContactMap().get(key).getString("contactNumber").trim().replaceAll("\\s+","");
+                        String contactNumber = contactsAdapter.getSelectedContactMap().get(key).getString(getString(R.string.contactnumber)).trim().replaceAll("\\s+","");
 
-                        if(!contactNumber.startsWith("+91")){
-                            contactNumber = ( contactNumber.startsWith("0")) ? contactNumber.replaceFirst("0","+91") : "+91"+contactNumber;
+                        if(!contactNumber.startsWith(getString(R.string.phonecountry_code))){
+                            contactNumber = ( contactNumber.startsWith("0")) ? contactNumber.replaceFirst("0",getString(R.string.phonecountry_code)) : getString(R.string.phonecountry_code)+contactNumber;
                         }
 
 
-                        if(contactNumber.startsWith("+91") && contactNumber.length() == 13){
+                        if(contactNumber.startsWith(getString(R.string.phonecountry_code)) && contactNumber.length() == 13){
                             contactInvitation.put(contactNumber);
-                            sendInvitationSms(contactsAdapter.getSelectedContactMap().get(key).getString("contactNumber"), getString(R.string.invitation));
+                            sendInvitationSms(contactsAdapter.getSelectedContactMap().get(key).getString(getString(R.string.contactNumber)), getString(R.string.invitation));
 
                         }else{
                             Snackbar snackbar = Snackbar
-                                    .make(getView(),contactNumber + " is not valid contact to send invitation", Snackbar.LENGTH_SHORT);
+                                    .make(getView(),contactNumber + getString(R.string.invalid), Snackbar.LENGTH_SHORT);
                             snackbar.show();
                         }
 
@@ -232,11 +232,11 @@ public class DriverStopSeletion extends ListFragment implements
 
                 try {
 
-                contactsStops.put("lat",String.valueOf(latLng.latitude));
-                contactsStops.put("longi",String.valueOf(latLng.longitude));
-                contactsStops.put("landmark",driver_stop_landMark.getText().toString());
-                contactsStops.put("address",driver_stop_address.getText().toString());
-                contactsStops.put("contacts",contactInvitation);
+                contactsStops.put(getString(R.string.lat),String.valueOf(latLng.latitude));
+                contactsStops.put(getString(R.string.longi),String.valueOf(latLng.longitude));
+                contactsStops.put(getString(R.string.landmark),driver_stop_landMark.getText().toString());
+                contactsStops.put(getString(R.string.locationaddress),driver_stop_address.getText().toString());
+                contactsStops.put(getString(R.string.contacts),contactInvitation);
 
 
                 contactWithAddress.put(contactsStops);
@@ -259,7 +259,7 @@ public class DriverStopSeletion extends ListFragment implements
 
                 try {
 
-                    final JSONObject jsonObject = getJsonObject().put("invitation",contactWithAddress);
+                    final JSONObject jsonObject = getJsonObject().put(getString(R.string.invitation_data),contactWithAddress);
                     Log.e("DRIVERSTOP",jsonObject.toString());
                     Call<JsonElement> siginResponse = TurnByTurnClient.get().sigin(jsonObject);
 
@@ -270,7 +270,7 @@ public class DriverStopSeletion extends ListFragment implements
                             try {
 
                                 JsonObject responseSigin = response.body().getAsJsonObject();
-                                jsonObject.put("response",responseSigin);
+                                jsonObject.put(getString(R.string.response),responseSigin);
 
                                 if(responseSigin.get(getString(R.string.asdriver)).getAsString().equals(R.string.success)){
 
@@ -279,18 +279,18 @@ public class DriverStopSeletion extends ListFragment implements
                                      * Insert User Account details in Database,
                                      */
                                     ContentValues accountValues = new ContentValues();
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.NAME, jsonObject.getString("name"));
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.PHOTO_URL, jsonObject.getString("photourl"));
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.EMAIL, jsonObject.getString("email"));
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.G_ID, jsonObject.getString("gid"));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.NAME, jsonObject.getString(getString(R.string.username)));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.PHOTO_URL, jsonObject.getString(getString(R.string.userprofilepic)));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.EMAIL, jsonObject.getString(getString(R.string.useremail)));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.G_ID, jsonObject.getString(getString(R.string.usergid)));
                                     accountValues.put(TurnByTurnContract.UserAccountEntry.ID_TOKEN, "");
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.CONTACT_NUMBER,jsonObject.getString("drivercontactnumber"));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.CONTACT_NUMBER,jsonObject.getString(getString(R.string.drivercontactnumber)));
                                     accountValues.put(TurnByTurnContract.UserAccountEntry.BUS_NUMBER, jsonObject.getString("name"));
                                     accountValues.put(TurnByTurnContract.UserAccountEntry.DRIVER_ID, "0");
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.IMEI,jsonObject.getString("imei"));
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_AUTH_CODE,jsonObject.getString("serverauthcode"));
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.USER_TYPE,jsonObject.getString("profiletype"));
-                                    accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_ID,responseSigin.get("driverid").getAsString());
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.IMEI,jsonObject.getString(getString(R.string.imei)));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_AUTH_CODE,jsonObject.getString(getString(R.string.serverauthcode)));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.USER_TYPE,jsonObject.getString(getString(R.string.user_profiletype)));
+                                    accountValues.put(TurnByTurnContract.UserAccountEntry.SERVER_ID,responseSigin.get(getString(R.string.driverid)).getAsString());
 
 
                                     Uri insertedUri = getContext().getContentResolver().insert(TurnByTurnContract.UserAccountEntry.CONTENT_URI,
@@ -303,20 +303,20 @@ public class DriverStopSeletion extends ListFragment implements
                                     /**
                                      * Insert Stop Account details in Database,
                                      */
-                                    ContentValues[] stopValues = new ContentValues[responseSigin.get("stops").getAsJsonArray().size()];
+                                    ContentValues[] stopValues = new ContentValues[responseSigin.get(getString(R.string.stops)).getAsJsonArray().size()];
 
-                                    JsonArray jsonarray = responseSigin.get("stops").getAsJsonArray();
+                                    JsonArray jsonarray = responseSigin.get(getString(R.string.stops)).getAsJsonArray();
                                     HashSet<String> stop  = new HashSet<>();
                                     for(int i=0;i<stopValues.length;i++){
 
                                         stopValues[i] = new ContentValues();
 
-                                        stopValues[i].put(TurnByTurnContract.StopEntry.LATITUDE, String.valueOf(jsonarray.get(i).getAsJsonObject().get("latitude")).replaceAll("^\"|\"$", ""));
-                                        stopValues[i].put(TurnByTurnContract.StopEntry.LONGITUDE, String.valueOf(jsonarray.get(i).getAsJsonObject().get("longitude")).replaceAll("^\"|\"$", ""));
-                                        stopValues[i].put(TurnByTurnContract.StopEntry.LANDMARK, String.valueOf(jsonarray.get(i).getAsJsonObject().get("landmark")).replaceAll("^\"|\"$", ""));
-                                        stopValues[i].put(TurnByTurnContract.StopEntry.ADDRESS, String.valueOf(jsonarray.get(i).getAsJsonObject().get("address")).replaceAll("^\"|\"$", ""));
-                                        stopValues[i].put(TurnByTurnContract.StopEntry.SERVERID,String.valueOf(jsonarray.get(i).getAsJsonObject().get("stopID")).replaceAll("^\"|\"$", ""));
-                                        stop.add(String.valueOf(jsonarray.get(i).getAsJsonObject().get("stopID")));
+                                        stopValues[i].put(TurnByTurnContract.StopEntry.LATITUDE, String.valueOf(jsonarray.get(i).getAsJsonObject().get(getString(R.string.latitude))).replaceAll("^\"|\"$", ""));
+                                        stopValues[i].put(TurnByTurnContract.StopEntry.LONGITUDE, String.valueOf(jsonarray.get(i).getAsJsonObject().get(getString(R.string.longitude))).replaceAll("^\"|\"$", ""));
+                                        stopValues[i].put(TurnByTurnContract.StopEntry.LANDMARK, String.valueOf(jsonarray.get(i).getAsJsonObject().get(getString(R.string.landmark))).replaceAll("^\"|\"$", ""));
+                                        stopValues[i].put(TurnByTurnContract.StopEntry.ADDRESS, String.valueOf(jsonarray.get(i).getAsJsonObject().get(getString(R.string.locationaddress))).replaceAll("^\"|\"$", ""));
+                                        stopValues[i].put(TurnByTurnContract.StopEntry.SERVERID,String.valueOf(jsonarray.get(i).getAsJsonObject().get(getString(R.string.stopID))).replaceAll("^\"|\"$", ""));
+                                        stop.add(String.valueOf(jsonarray.get(i).getAsJsonObject().get(getString(R.string.stopID))));
                                     }
 
                                     int stopinsert = getContext().getContentResolver().bulkInsert(TurnByTurnContract.StopEntry.CONTENT_URI,
@@ -326,8 +326,8 @@ public class DriverStopSeletion extends ListFragment implements
                                     new PULLParentsStop(getContext()).execute(stop);
                                     SharedPreferences pref = getContext().getSharedPreferences(Config.SHARED_PREF, 0);
                                     JSONObject jsonObject = new JSONObject();
-                                    jsonObject.put("type","welcome");
-                                    jsonObject.put("deviceregisterid",pref.getString("regId", null));
+                                    jsonObject.put(getString(R.string.pushtype),getString(R.string.welcome_push));
+                                    jsonObject.put(getString(R.string.deviceregisterid),pref.getString(getString(R.string.regId), null));
 
                                     Call<JsonElement> welcome = TurnByTurnClient.get().sendPush(jsonObject);
                                     welcome.enqueue(new Callback<JsonElement>() {
@@ -342,7 +342,7 @@ public class DriverStopSeletion extends ListFragment implements
                                         }
                                     });
 
-                                    mListener.onFragmentInteraction(jsonObject,"START_PROFILE");
+                                    mListener.onFragmentInteraction(jsonObject,R.string.start_profile);
                                 }
 
                             } catch (JSONException e) {
@@ -418,7 +418,7 @@ public class DriverStopSeletion extends ListFragment implements
                     BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.bus);
                     googleMap.addMarker(new MarkerOptions()
                             .position(latLng)
-                            .title("Pick & Drop location")
+                            .title(getString(R.string.pick_drop))
                             .icon(icon)
                     );
 
@@ -434,7 +434,7 @@ public class DriverStopSeletion extends ListFragment implements
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.implementListner));
         }
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
@@ -601,8 +601,8 @@ public class DriverStopSeletion extends ListFragment implements
 
 
     private void sendInvitationSms(String mobNo, String message) {
-        String smsSent = "SMS_SENT";
-        String smsDelivered = "SMS_DELIVERED";
+        String smsSent = getString(R.string.sms_send);
+        String smsDelivered = getString(R.string.sms_delivered);
         PendingIntent sentPI = PendingIntent.getBroadcast(getActivity(), 0,
                 new Intent(smsSent), 0);
         PendingIntent deliveredPI = PendingIntent.getBroadcast(getActivity(), 0,
@@ -618,23 +618,23 @@ public class DriverStopSeletion extends ListFragment implements
                 {
                     case Activity.RESULT_OK:
                         Snackbar snackbar = Snackbar
-                                .make(getView(),"Invitation Send", Snackbar.LENGTH_SHORT);
+                                .make(getView(),getString(R.string.invitation_send), Snackbar.LENGTH_SHORT);
                         snackbar.show();
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                        Toast.makeText(getContext(), "Generic failure",
+                        Toast.makeText(getContext(), getString(R.string.generic_failure),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_NO_SERVICE:
-                        Toast.makeText(getContext(), "No service",
+                        Toast.makeText(getContext(), getString(R.string.no_service),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_NULL_PDU:
-                        Toast.makeText(getContext(), "Null PDU",
+                        Toast.makeText(getContext(), getString(R.string.nullpdu),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_RADIO_OFF:
-                        Toast.makeText(getContext(), "Radio off",
+                        Toast.makeText(getContext(), getString(R.string.radio_off),
                                 Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -650,12 +650,12 @@ public class DriverStopSeletion extends ListFragment implements
                     case Activity.RESULT_OK:
 
                         Snackbar snackbar = Snackbar
-                                .make(getView(),"Invitation delivered", Snackbar.LENGTH_SHORT);
+                                .make(getView(),getString(R.string.invitation_delivered), Snackbar.LENGTH_SHORT);
                         snackbar.show();
 
                         break;
                     case Activity.RESULT_CANCELED:
-                        Toast.makeText(getContext(), "SMS not delivered",
+                        Toast.makeText(getContext(), getString(R.string.sms_not_delivered),
                                 Toast.LENGTH_SHORT).show();
                         break;
                 }
