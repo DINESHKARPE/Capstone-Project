@@ -115,5 +115,8 @@
     <string name="invresponse">INVRESPONSE</string>
     <string name="data">data</string>
     <string name="id">id</string>
+    <string name="userid">userid</string>
+    <string name="profile_sync_sucess">Profile Sync Success</string>
+    <string name="driver_sync_sucess">Driver Sync Success</string>
 
 </resources>

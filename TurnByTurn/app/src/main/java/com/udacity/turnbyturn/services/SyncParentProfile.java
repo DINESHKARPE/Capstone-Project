@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.udacity.turnbyturn.R;
 import com.udacity.turnbyturn.data.TurnByTurnContract;
 import com.udacity.turnbyturn.rest.TurnByTurnClient;
 import com.udacity.turnbyturn.util.ProfileType;
@@ -45,21 +46,21 @@ public class SyncParentProfile extends AsyncTask<JSONObject,Void,JSONObject> {
         JSONObject jsonObject = params[0];
         JSONObject userProfile = new JSONObject();
         try {
-            userProfile.put("name",jsonObject.getString("name"));
-            userProfile.put("photourl",jsonObject.getString("photourl"));
-            userProfile.put("email",jsonObject.getString("email"));
-            userProfile.put("gid",jsonObject.getString("gid"));
-            userProfile.put("imei",jsonObject.getString("imei"));
-            userProfile.put("serverauthcode",jsonObject.getString("serverauthcode"));
-            userProfile.put("userid",new JSONObject( jsonObject.getString("INVRESPONSE")).getJSONArray("data").getJSONObject(0).get("id"));
-            userProfile.put("regId",jsonObject.getString("regId"));
+            userProfile.put(context.getString(R.string.username),jsonObject.getString(context.getString(R.string.username)));
+            userProfile.put(context.getString(R.string.photourl),jsonObject.getString(context.getString(R.string.userprofilepic)));
+            userProfile.put(context.getString(R.string.useremail),jsonObject.getString(context.getString(R.string.useremail)));
+            userProfile.put(context.getString(R.string.usergid),jsonObject.getString(context.getString(R.string.usergid)));
+            userProfile.put(context.getString(R.string.imei),jsonObject.getString(context.getString(R.string.imei)));
+            userProfile.put(context.getString(R.string.serverauthcode),jsonObject.getString(context.getString(R.string.serverauthcode)));
+            userProfile.put(context.getString(R.string.userid),new JSONObject( jsonObject.getString(context.getString(R.string.invresponse))).getJSONArray(context.getString(R.string.data)).getJSONObject(0).get(context.getString(R.string.id)));
+            userProfile.put(context.getString(R.string.regId),jsonObject.getString(context.getString(R.string.regId)));
 
             Call<JsonElement> profileUpdate = TurnByTurnClient.get().updateparent(userProfile);
             profileUpdate.enqueue(new Callback<JsonElement>() {
                 @Override
                 public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                     Snackbar snackbar = Snackbar
-                            .make(currentView, "Profile Sync Success", Snackbar.LENGTH_SHORT);
+                            .make(currentView, context.getString(R.string.profile_sync_sucess), Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
 
@@ -99,7 +100,7 @@ public class SyncParentProfile extends AsyncTask<JSONObject,Void,JSONObject> {
 
 
                     Snackbar snackbar = Snackbar
-                            .make(currentView, "Driver Sync Success", Snackbar.LENGTH_SHORT);
+                            .make(currentView, context.getString(R.string.driver_sync_sucess), Snackbar.LENGTH_SHORT);
                     snackbar.show();
                 }
 

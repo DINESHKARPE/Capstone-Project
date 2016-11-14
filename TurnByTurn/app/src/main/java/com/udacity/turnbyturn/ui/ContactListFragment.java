@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -357,12 +358,14 @@ public class ContactListFragment extends ListFragment implements
 
 
     private void sendInvitationSms(String mobNo, String message) {
-        String smsSent = "SMS_SENT";
-        String smsDelivered = "SMS_DELIVERED";
+        String smsSent = getString(R.string.sms_send);
+        String smsDelivered = getString(R.string.sms_delivered);
         PendingIntent sentPI = PendingIntent.getBroadcast(getActivity(), 0,
                 new Intent(smsSent), 0);
         PendingIntent deliveredPI = PendingIntent.getBroadcast(getActivity(), 0,
                 new Intent(smsDelivered), 0);
+
+
 
         // Receiver for Sent SMS.
         getActivity().registerReceiver(new BroadcastReceiver(){
@@ -371,23 +374,24 @@ public class ContactListFragment extends ListFragment implements
                 switch (getResultCode())
                 {
                     case Activity.RESULT_OK:
-                        Toast.makeText(getContext(), "SMS sent",
-                                Toast.LENGTH_SHORT).show();
+                        Snackbar snackbar = Snackbar
+                                .make(getView(),getString(R.string.invitation_send), Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                         break;
                     case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                        Toast.makeText(getContext(), "Generic failure",
+                        Toast.makeText(getContext(), getString(R.string.generic_failure),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_NO_SERVICE:
-                        Toast.makeText(getContext(), "No service",
+                        Toast.makeText(getContext(), getString(R.string.no_service),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_NULL_PDU:
-                        Toast.makeText(getContext(), "Null PDU",
+                        Toast.makeText(getContext(), getString(R.string.nullpdu),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case SmsManager.RESULT_ERROR_RADIO_OFF:
-                        Toast.makeText(getContext(), "Radio off",
+                        Toast.makeText(getContext(), getString(R.string.radio_off),
                                 Toast.LENGTH_SHORT).show();
                         break;
                 }
@@ -401,11 +405,14 @@ public class ContactListFragment extends ListFragment implements
                 switch (getResultCode())
                 {
                     case Activity.RESULT_OK:
-                        Toast.makeText(getContext(), "SMS delivered",
-                                Toast.LENGTH_SHORT).show();
+
+                        Snackbar snackbar = Snackbar
+                                .make(getView(),getString(R.string.invitation_delivered), Snackbar.LENGTH_SHORT);
+                        snackbar.show();
+
                         break;
                     case Activity.RESULT_CANCELED:
-                        Toast.makeText(getContext(), "SMS not delivered",
+                        Toast.makeText(getContext(), getString(R.string.sms_not_delivered),
                                 Toast.LENGTH_SHORT).show();
                         break;
                 }

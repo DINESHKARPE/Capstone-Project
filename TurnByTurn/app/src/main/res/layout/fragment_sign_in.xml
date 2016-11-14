@@ -16,7 +16,7 @@
         android:id="@+id/logo"
         android:layout_width="217dp"
         android:layout_height="217dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/turnbyturn"
         tools:layout_editor_absoluteX="83dp"
         tools:layout_editor_absoluteY="57dp"
         android:contentDescription="@string/app_name"
