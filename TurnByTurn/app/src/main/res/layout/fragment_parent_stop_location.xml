@@ -69,6 +69,7 @@
 
 
     <Button
+        android:contentDescription="@string/select_location"
         android:id="@+id/profile_selection_button"
         android:layout_width="0dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"

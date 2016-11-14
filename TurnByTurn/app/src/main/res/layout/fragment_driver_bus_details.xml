@@ -67,6 +67,7 @@
         />
 
     <Button
+        android:contentDescription="@string/submit_but_detils"
         android:id="@+id/bus_driver"
         android:layout_width="0dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"

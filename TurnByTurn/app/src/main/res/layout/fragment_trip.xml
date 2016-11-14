@@ -24,6 +24,7 @@
         />
 
     <Button
+        android:contentDescription="@string/trip_start"
         android:onClick="tripStartStop"
         android:id="@+id/start_stop"
         android:layout_width="match_parent"

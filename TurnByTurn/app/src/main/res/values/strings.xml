@@ -53,5 +53,9 @@
     <string name="appwidget_text">TunrByTurn widget</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="submit_but_detils">Submit Bus and Contact Details</string>
+    <string name="invite_contact">Send Invitation Selected Contact</string>
+    <string name="profile_type_submit">Profile Type Selected</string>
+    <string name="sign_in">Google Sign in</string>
 
 </resources>

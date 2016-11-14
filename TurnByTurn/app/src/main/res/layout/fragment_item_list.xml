@@ -40,7 +40,7 @@
         android:divider="@color/colorDark" />
 
     <Button
-
+        android:contentDescription="@string/invite_contact"
         android:id="@+id/contact_invite_button"
         android:layout_width="0dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
