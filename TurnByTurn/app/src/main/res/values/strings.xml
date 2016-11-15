@@ -118,5 +118,28 @@
     <string name="userid">userid</string>
     <string name="profile_sync_sucess">Profile Sync Success</string>
     <string name="driver_sync_sucess">Driver Sync Success</string>
+    <string name="service_missing">SERVICE MISSING</string>
+    <string name="update_req">UPDATE_REQUIRED</string>
+    <string name="play_services_result">Play Service result</string>
+    <string name="location_setting">All location settings are satisfied.</string>
+    <string name="current_location">You Current Location</string>
+    <string name="settings_chnag_unavilable">Location settings are inadequate, and cannot be fixed here. Dialog not created.</string>
+    <string name="pendingintent_unable">PendingIntent unable to execute request.</string>
+    <string name="google_client_loding">Google Client Loding</string>
+    <string name="service_already">Service already</string>
+    <string name="running">running</string>
+    <string name="service_not">Service Not</string>
+    <string name="location">location</string>
+    <string name="submit_driver_stop">Submit Driver Stop</string>
+    <string name="licensesdialog">LicensesDialog</string>
+    <string name="licensesdialogurl">http://psdev.de</string>
+    <string name="copyright"><![CDATA[Copyright 2013 Philip Schiffer <admin@psdev.de>]]></string>
+    <string name="startwithzero">0</string>
+    <string name="result_ok">User agreed to make required location settings changes</string>
+    <string name="ok">OK</string>
+    <string name="result_canceled">User chose not to make required location settings changes</string>
+    <string name="location_sucess">All location settings are satisfied.</string>
+    <string name="usergidtoken">gidtoken</string>
+    <string name="warning">Something wrong , Please validated API Key</string>
 
 </resources>

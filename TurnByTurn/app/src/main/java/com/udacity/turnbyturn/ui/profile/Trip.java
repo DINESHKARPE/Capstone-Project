@@ -165,17 +165,17 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
         int statusCode = com.google.android.gms.common.GooglePlayServicesUtil.isGooglePlayServicesAvailable(this.getActivity());
         switch (statusCode) {
             case ConnectionResult.SUCCESS:
-//                Toast.makeText(this.getActivity(), "SUCCESS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getActivity(), getString(R.string.success), Toast.LENGTH_SHORT).show();
                 break;
             case ConnectionResult.SERVICE_MISSING:
-//                Toast.makeText(this.getActivity(), "SERVICE MISSING", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getActivity(), getString(R.string.service_missing), Toast.LENGTH_SHORT).show();
                 break;
             case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
-//                Toast.makeText(this.getActivity(), "UPDATE REQUIRED", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getActivity(), getString(R.string.update_req), Toast.LENGTH_SHORT).show();
                 break;
 
             default:
-                Toast.makeText(this.getActivity(), "Play Service result " + statusCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getActivity(), getString(R.string.play_services_result) + statusCode, Toast.LENGTH_SHORT).show();
         }
 
         // Gets the MapView from the XML layout and creates it
@@ -198,7 +198,7 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(button.getText().equals("Start Trip")){
+                if(button.getText().equals(getString(R.string.trip_start))){
                     button.setText(R.string.trip_stop);
                     button.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.stoptrip));
                     intent = new Intent(getContext(), DriverTripService.class);
@@ -261,7 +261,7 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
                 final Status status = locationSettingsResult.getStatus();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
-                        Log.i(TAG, "All location settings are satisfied.");
+                        Log.i(TAG, getString(R.string.location_setting));
 
 
                         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -286,7 +286,7 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
 
                         map.addMarker(new MarkerOptions()
                                 .position(mapCenter)
-                                .title("You Current Location")
+                                .title(getString(R.string.current_location))
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus))
                         );
 
@@ -296,20 +296,19 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
 
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        Log.i(TAG, "Location settings are not satisfied. Show the user a dialog to" +
-                                "upgrade location settings ");
+                        Log.i(TAG, getString(R.string.resolution_required));
 
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the result
                             // in onActivityResult().
                             status.startResolutionForResult(getActivity(), REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
-                            Log.i(TAG, "PendingIntent unable to execute request.");
+
+                            Log.i(TAG, getString(R.string.pendingintent_unable));
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        Log.i(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog " +
-                                "not created.");
+                        Log.i(TAG, getString(R.string.settings_chnag_unavilable));
                         break;
                 }
             }
@@ -427,7 +426,7 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
 
         map.addMarker(new MarkerOptions()
                 .position(latLng)
-                .title("You Current Location")
+                .title(getString(R.string.current_location))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.bus))
         );
 
@@ -462,7 +461,7 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
             mProgressDialog = new ProgressDialog(getContext());
             mProgressDialog.setMessage(getString(R.string.loading));
             mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setTitle("Google Client Loding");
+            mProgressDialog.setTitle(getString(R.string.google_client_loding));
             mProgressDialog.getWindow().setBackgroundDrawableResource(R.color.colorPrimaryDark);
             mProgressDialog.show();
         }else {
@@ -502,11 +501,11 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
         ActivityManager manager = (ActivityManager)context. getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                Log.i("Service already","running");
+                Log.i(getString(R.string.service_already),getString(R.string.running));
                 return true;
             }
         }
-        Log.i("Service not","running");
+        Log.i(getString(R.string.service_not),getString(R.string.running));
         return false;
     }
 
@@ -514,7 +513,7 @@ public class Trip extends Fragment implements OnMapReadyCallback, LoaderManager.
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            Toast.makeText(getContext(),intent.getExtras().getString("location"),Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),intent.getExtras().getString(getString(R.string.location)),Toast.LENGTH_LONG).show();
         }
     };
 

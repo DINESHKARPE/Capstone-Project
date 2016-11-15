@@ -65,6 +65,7 @@
 
 
     <Button
+        android:contentDescription="@string/submit_driver_stop"
         android:id="@+id/invite_to_parent"
         android:layout_width="0dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"

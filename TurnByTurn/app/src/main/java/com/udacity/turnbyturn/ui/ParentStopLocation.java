@@ -192,7 +192,7 @@ public class ParentStopLocation extends Fragment implements LocationListener {
                 Toast.makeText(getContext(), status.getStatusMessage(),Toast.LENGTH_LONG).show();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
-                        Log.i(TAG, "All location settings are satisfied.");
+                        Log.i(TAG, getString(R.string.location_sucess));
 
                         try {
                             setCurrentLocation();
@@ -362,16 +362,16 @@ public class ParentStopLocation extends Fragment implements LocationListener {
             case REQUEST_CHECK_SETTINGS:
                 switch (resultCode) {
                     case Activity.RESULT_OK:
-                        Log.i(TAG, "User agreed to make required location settings changes.");
+                        Log.i(TAG, getString(R.string.result_ok));
                         try {
-                            Toast.makeText(getContext(),resultCode+"OK",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),resultCode+getString(R.string.ok),Toast.LENGTH_LONG).show();
                             setCurrentLocation();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         break;
                     case Activity.RESULT_CANCELED:
-                        Log.i(TAG, "User chose not to make required location settings changes.");
+                        Log.i(TAG, getString(R.string.result_canceled));
                         break;
                 }
                 break;

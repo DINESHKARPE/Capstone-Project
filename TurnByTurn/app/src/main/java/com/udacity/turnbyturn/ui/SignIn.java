@@ -128,7 +128,7 @@ public class SignIn extends Fragment implements View.OnClickListener{
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + getString(R.string.implementListner));
         }
     }
 
@@ -172,14 +172,14 @@ public class SignIn extends Fragment implements View.OnClickListener{
 
                 SharedPreferences pref = getContext().getSharedPreferences(Config.SHARED_PREF, 0);
 
-                userAccount.put("name",acct.getDisplayName());
-                userAccount.put("photourl",acct.getPhotoUrl());
-                userAccount.put("email",acct.getEmail());
-                userAccount.put("gid",acct.getId());
-                userAccount.put("gidtoken",acct.getIdToken());
-                userAccount.put("imei",mngr.getDeviceId());
-                userAccount.put("serverauthcode",acct.getServerAuthCode());
-                userAccount.put("regId",pref.getString("regId", null));
+                userAccount.put(getString(R.string.username),acct.getDisplayName());
+                userAccount.put(getString(R.string.userprofilepic),acct.getPhotoUrl());
+                userAccount.put(getString(R.string.useremail),acct.getEmail());
+                userAccount.put(getString(R.string.usergid),acct.getId());
+                userAccount.put(getString(R.string.usergidtoken),acct.getIdToken());
+                userAccount.put(getString(R.string.imei),mngr.getDeviceId());
+                userAccount.put(getString(R.string.serverauthcode),acct.getServerAuthCode());
+                userAccount.put(getString(R.string.regId),pref.getString(getString(R.string.regId), null));
                 Log.d(TAG,userAccount.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -190,7 +190,7 @@ public class SignIn extends Fragment implements View.OnClickListener{
 
         } else {
             Snackbar snackbar = Snackbar
-                    .make(getView(), "Something wrong , Please validated API Key", Snackbar.LENGTH_SHORT);
+                    .make(getView(), getString(R.string.warning), Snackbar.LENGTH_SHORT);
             snackbar.show();
 
         }

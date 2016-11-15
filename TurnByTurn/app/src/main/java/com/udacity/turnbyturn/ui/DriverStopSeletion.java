@@ -211,7 +211,7 @@ public class DriverStopSeletion extends ListFragment implements
                         String contactNumber = contactsAdapter.getSelectedContactMap().get(key).getString(getString(R.string.contactnumber)).trim().replaceAll("\\s+","");
 
                         if(!contactNumber.startsWith(getString(R.string.phonecountry_code))){
-                            contactNumber = ( contactNumber.startsWith("0")) ? contactNumber.replaceFirst("0",getString(R.string.phonecountry_code)) : getString(R.string.phonecountry_code)+contactNumber;
+                            contactNumber = ( contactNumber.startsWith(getString(R.string.startwithzero))) ? contactNumber.replaceFirst(getString(R.string.startwithzero),getString(R.string.phonecountry_code)) : getString(R.string.phonecountry_code)+contactNumber;
                         }
 
 

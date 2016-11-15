@@ -180,9 +180,9 @@ public class UserProfile extends AppCompatActivity
                     });
         }
         else if(id == R.id.licence){
-            final String name = "LicensesDialog";
-            final String url = "http://psdev.de";
-            final String copyright = "Copyright 2013 Philip Schiffer <admin@psdev.de>";
+            final String name = getString(R.string.licensesdialog);
+            final String url = getString(R.string.licensesdialogurl);
+            final String copyright = getString(R.string.copyright);
             final License license = new ApacheSoftwareLicense20();
             final Notice notice = new Notice(name, url, copyright, license);
             new LicensesDialog.Builder(this)
