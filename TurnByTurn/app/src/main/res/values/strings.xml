@@ -141,5 +141,9 @@
     <string name="location_sucess">All location settings are satisfied.</string>
     <string name="usergidtoken">gidtoken</string>
     <string name="warning">Something wrong , Please validated API Key</string>
+    <string name="add_button">Add Button</string>
+    <string name="profile_selection_type">Profile Selection</string>
+    <string name="profile_parent">Parent Profile</string>
+    <string name="profile_driver">Profile Driver</string>
 
 </resources>
